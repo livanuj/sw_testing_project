@@ -5,9 +5,9 @@ RSpec.describe "Users API", type: :request do
   let!(:users) { create_list(:user, 10)}
   let(:user_id) { users.first.id }
 
-  # Test suite for GET /users
-  describe "#index GET /users" do
-    before { get '/users' }
+  # Test suite for GET /api/v1/users
+  describe "#index GET /api/v1/users" do
+    before { get '/api/v1/users' }
 
     it 'returns users' do
       expect(json).not_to be_empty
@@ -19,9 +19,9 @@ RSpec.describe "Users API", type: :request do
     end
   end
 
-  # Test suite for GET /users/:id
-  describe 'GET /users/:id' do
-    before { get "/users/#{user_id}" }
+  # Test suite for GET /api/v1/users/:id
+  describe 'GET /api/v1/users/:id' do
+    before { get "/api/v1/users/#{user_id}" }
 
     context 'when the user exists' do
       it 'returns the user' do
@@ -48,8 +48,8 @@ RSpec.describe "Users API", type: :request do
     end
   end
 
-  # Test suite for POST /users
-  describe 'POST /users' do
+  # Test suite for POST /api/v1/users
+  describe 'POST /api/v1/users' do
     # valid payload
     let(:valid_attributes) {{
       name: 'Anuj Shrestha',
@@ -59,7 +59,7 @@ RSpec.describe "Users API", type: :request do
     }}
 
     context 'when the request is valid' do
-      before { post '/users', params: valid_attributes }
+      before { post '/api/v1/users', params: valid_attributes }
 
       it 'creates a user' do
         expect(json['name']).to eq('Anuj Shrestha')
@@ -74,7 +74,7 @@ RSpec.describe "Users API", type: :request do
     end
 
     context 'when the request is invalid' do
-      before { post '/users', params: { email: 'anuj' } }
+      before { post '/api/v1/users', params: { email: 'anuj' } }
 
       it 'returns status code 422' do
         expect(response).to have_http_status(422)
@@ -87,13 +87,13 @@ RSpec.describe "Users API", type: :request do
     end
   end
 
-  # Test suite for PUT /users/:id
-  describe 'PUT /users/:id' do
+  # Test suite for PUT /api/v1/users/:id
+  describe 'PUT /api/v1/users/:id' do
     let(:valid_attributes) { { email: 'anuj@gmail.com' } }
     let(:invalid_attributes) { { email: 'anuj...' } }
 
     context 'when the record exists' do
-      before { put "/users/#{user_id}", params: valid_attributes }
+      before { put "/api/v1/users/#{user_id}", params: valid_attributes }
 
       it 'updates the record' do
         expect(response.body).not_to be_empty
@@ -106,7 +106,7 @@ RSpec.describe "Users API", type: :request do
     end
 
     context 'updates invalid record' do
-      before { put "/users/#{user_id}", params: invalid_attributes }
+      before { put "/api/v1/users/#{user_id}", params: invalid_attributes }
 
       it 'updates the record' do
         expect(response.body).to match("{\"message\":\"Validation failed: Email is invalid\"}")
@@ -118,9 +118,9 @@ RSpec.describe "Users API", type: :request do
     end
   end
 
-   # Test suite for DELETE /users/:id
-   describe 'DELETE /users/:id' do
-    before { delete "/users/#{user_id}" }
+   # Test suite for DELETE /api/v1/users/:id
+   describe 'DELETE /api/v1/users/:id' do
+    before { delete "/api/v1/users/#{user_id}" }
 
     it 'returns status code 204' do
       expect(response).to have_http_status(204)
