@@ -6,7 +6,7 @@ module Api
 
       # GET /users
       def index
-        @users = User.all
+        @users = User.order('created_at DESC')
         json_response(@users)
       end
 
