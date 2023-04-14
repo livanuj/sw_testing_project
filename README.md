@@ -5,21 +5,36 @@ application up and running.
 
 Things you may want to cover:
 
-* Ruby version
+## Ruby version
 
-* System dependencies
+  ruby-2.7.3
+ 
+### Rails version
 
-* Configuration
+  Rails 6.1.7.3
 
-* Database creation
 
-* Database initialization
+### Configuration
 
-* How to run the test suite
+run `bundle install` in the root of the folder
 
-* Services (job queues, cache servers, search engines, etc.)
+### Database creation
+```
+  rails db:create
+  rails db:migrate
+  rails db:seed
+```
 
-* Deployment instructions
+### initialization
+```
+  rails server -p 3001
+```
 
-* ...
-# sw_testing_project
+^ will run server in port 3001 since frontend will run in port 3000
+
+### How to run the test suite
+
+`rspec` from the root of the folder
+
+to run specific test file, `rspec /relative/path/to/file`
+
